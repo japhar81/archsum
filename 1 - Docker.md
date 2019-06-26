@@ -1,4 +1,12 @@
-TODO: SSH Instructions Go Here
+## Accessing the Lab Server
+
+All lab exercises will require you to be SSHd into a lab server we have set up with all the tools you need.
+
+```bash
+ssh openshift-lab.secureworkslab.net
+```
+
+Use your lab credentials to authenticate.
 
 ## Hello World
 
@@ -121,10 +129,24 @@ Look in this directory. By default, Docker looks for a file named `Dockerfile` t
 ```bash
 cd ~/01_dockerfile
 docker build -t nginxtest:<your username> .
-docker run -p <random number>:80 nginxtest:<your username>
+docker run -d --name lab_nginx -p <random number>:80 nginxtest:<your username>
 ```
 
-In a separate tab, test by doing `curl localhost:<random number>`
+_If you get an error that the random port you chose is in use, choose another. Someone else on the server must be running something on the originally chosen port._
+
+The `-d` makes the container run in the background, or _daemoinzed_ mode. This allows you to use the same terminal to test. The `--name` gives docker a name to refer to this container by. Test by:
+
+```bash
+curl localhost:<random number>
+```
+
+You will see that nginx has responded to your request. Look at the resulting logs in the running container with:
+
+```bash
+docker logs lab_nginx
+```
+
+You should see a reference to the GET request you issued with curl.
 
 Take a look at the contents of `Dockerfile` to see what has happened. Essentially, Docker was told to start with an image that had nginx pre-installed, copy over some content and an entry point script, and then start that entry point. Take special note of the `RUN` command. For the most part, if you can do it in `bash`, you can do it in `RUN`. This includes things like `rpm -i` and `yum`.
 
