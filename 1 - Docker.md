@@ -129,7 +129,7 @@ Look in this directory. By default, Docker looks for a file named `Dockerfile` t
 ```bash
 cd ~/01_dockerfile
 docker build -t nginxtest:<your username> .
-docker run -d --name lab_nginx:<your username> -p <random number>:80 nginxtest:<your username>
+docker run -d --name lab_nginx-<your username> -p <random number>:80 nginxtest:<your username>
 ```
 
 _If you get an error that the random port you chose is in use, choose another. Someone else on the server must be running something on the originally chosen port._
@@ -143,7 +143,7 @@ curl localhost:<random number>
 You will see that nginx has responded to your request. Look at the resulting logs in the running container with:
 
 ```bash
-docker logs lab_nginx:<your username>
+docker logs lab_nginx-<your username>
 ```
 
 You should see a reference to the GET request you issued with curl.
@@ -153,13 +153,13 @@ Take a look at the contents of `Dockerfile` to see what has happened. Essentiall
 Time to clean up after yourself. Stop your container before moving on to the next lab:
 
 ```bash
-docker stop lab_nginx:<your username>
+docker stop lab_nginx-<your username>
 ```
 
 Remember earlier, when we said exited containers continue to live on disk? Use `docker ps -a` to see your stopped, but still existing, container. Then remove it from disk using:
 
 ```bash
-docker rm -f lab_nginx:<your username>
+docker rm -f lab_nginx-<your username>
 ```
 
 ...and move on to lab 2.
